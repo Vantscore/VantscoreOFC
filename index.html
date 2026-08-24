@@ -3440,6 +3440,235 @@
        .sports-fab-wrap.away { transform: none; }
    }
 
+   /* ══════════════════════════════════════════════════════════
+      MOBILE — acessibilidade e alvos de toque
+      Referência: 44px é o mínimo confortável para o dedo.
+   ══════════════════════════════════════════════════════════ */
+
+   /* ── 1. A sidebar deixa de sumir: vai para baixo do feed ── */
+   @media (max-width: 1024px) {
+       .main-layout { flex-direction: column; }
+       .sidebar {
+           display: flex !important;
+           width: 100% !important;
+           position: static;
+           max-height: none;
+           overflow: visible;
+           border-left: none;
+           border-top: 1px solid var(--border);
+           padding: 14px 12px 20px;
+       }
+       .feed { max-width: none; }
+   }
+   /* em tablet, os cards da sidebar ficam lado a lado */
+   @media (min-width: 621px) and (max-width: 1024px) {
+       .sidebar {
+           display: grid !important;
+           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+           gap: 12px;
+           align-items: start;
+       }
+       .rail { grid-column: 1 / -1; }
+   }
+
+   @media (max-width: 1024px) {
+       /* ── 2. Barra superior: nada de elementos espremidos ── */
+       .search-wrap { max-width: none !important; }
+       .search-bar { min-height: 40px; }
+       .icon-btn { width: 40px !important; height: 40px !important; }
+       .copa-nav-btn { min-height: 40px; padding: 0 14px; }
+       .auth-btn { height: 40px; }
+       .user-chip-btn { height: 40px; }
+       .avatar { width: 30px; height: 30px; }
+
+       /* ── 3. Abas e filtros ── */
+       .tab { min-height: 44px; padding: 0 16px; }
+       .vs-tab, .lg-tab { min-height: 46px; }
+       .vs-tabs { padding-inline: 12px; }
+       .vs-chip { min-height: 38px; padding: 0 15px; display: inline-flex; align-items: center; }
+
+       /* ── 4. Voltar e botões de topo ── */
+       .vs-back, .copa-back {
+           min-height: 44px; min-width: 44px;
+           padding: 0 12px;
+       }
+       .copa-mute-btn { width: 44px !important; height: 44px !important; }
+
+       /* ── 5. Botões pequenos dentro dos cards ── */
+       .fav-btn, .qs-btn { width: 38px !important; height: 38px !important; }
+       .vs-qs { width: 38px; height: 38px; }
+       .copa-hl-toggle, .copa-hl-watch { min-height: 46px; }
+       .user-menu-item { min-height: 48px; }
+       .sq-switch button { min-height: 40px; }
+       .auth-social, .auth-submit { min-height: 46px; }
+       .auth-left-close { width: 42px !important; height: 42px !important; }
+       .plan-btn, .ac-save, .lg-tab { min-height: 46px; }
+       .rail-btn { height: 54px; }
+
+       /* aviso de notificação: o "x" era um alvo de 8px */
+       .notif-banner-close {
+           width: 40px !important; height: 40px !important;
+           display: flex; align-items: center; justify-content: center;
+           font-size: 14px;
+       }
+       .notif-banner-btn { min-height: 38px; padding: 0 16px; }
+
+       /* ── 6. Imagens que estouravam a própria caixa ── */
+       .team-logo, .liga-flag, .copa-hl-flag, .vs-mrow-team img, .art-logo {
+           object-fit: contain;
+           max-width: 100%;
+       }
+       .match-body { min-width: 0; }
+       .team-row { min-width: 0; }
+       .team-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+   }
+
+   /* ── 7. Celular estreito ── */
+   @media (max-width: 620px) {
+       .match-card {
+           grid-template-columns: 52px 1fr 46px 38px 38px !important;
+           padding: 6px 8px !important;
+       }
+       .team-row { min-height: 38px; }
+
+       /* linhas de jogo da Copa: nome do time vira alvo de toque decente */
+       .vs-mrow {
+           grid-template-columns: 58px 1fr auto 1fr 38px;
+           padding: 12px 10px;
+       }
+       .vs-mrow-team .tclick {
+           display: inline-block;
+           padding: 8px 4px;
+           min-height: 38px;
+       }
+       .vs-mrow-team span { font-size: 12px; }
+
+       /* cabeçalho da liga e da conta respiram mais */
+       .lg-hero-in, .ac-hero-in, .tp-hero-in, .mp2-hero-in { padding-inline: 14px; }
+
+       /* tabelas largas rolam de lado, com aviso visual */
+       .lg-table-wrap { position: relative; -webkit-overflow-scrolling: touch; }
+       .lg-table { min-width: 620px; }
+
+       /* o botão flutuante não pode tapar conteúdo */
+       .sports-fab-wrap { bottom: 16px; left: 14px; }
+       .sports-fab { min-height: 46px; }
+
+       /* rodapé */
+       .ft-help-btns > * { min-height: 46px; }
+       .ft-col a, .ft-contact a { padding: 7px 0; min-height: 38px; }
+       .ft-bottom-links a { padding: 6px 0; display: inline-block; }
+   }
+
+   /* dica de rolagem lateral nas tabelas */
+   @media (max-width: 620px) {
+       .lg-table-wrap::after {
+           content: 'deslize para o lado →';
+           position: sticky; left: 0; bottom: 0;
+           display: block; padding: 6px 12px;
+           font-size: 10.5px; color: var(--text-3);
+           background: linear-gradient(0deg, var(--surface), transparent);
+           pointer-events: none;
+       }
+   }
+
+   /* ── 8. Segunda rodada: o que a auditoria ainda apontou ── */
+   @media (max-width: 1024px) {
+       /* botão da Copa no topo: ícone sozinho precisa de largura */
+       .copa-nav-btn { min-width: 44px; justify-content: center; }
+
+       /* favoritar e estatística rápida no card */
+       .fav-btn, .qs-btn { width: 42px !important; height: 42px !important; }
+
+       /* modal de login */
+       .auth-tab { min-height: 44px; }
+       .auth-eye { width: 42px !important; height: 42px !important; bottom: 0 !important; }
+       .auth-terms a { display: inline-block; padding: 4px 0; }
+
+       /* aviso de notificação */
+       .notif-banner-btn { min-height: 42px; }
+
+       /* filtros de fase da Copa */
+       .vs-chip { min-height: 42px; }
+
+       /* links do rodapé */
+       .ft-col a { min-height: 42px; display: flex; align-items: center; }
+   }
+
+   /* ── 9. Barra de busca: encolhe sem cortar o conteúdo ── */
+   @media (max-width: 620px) {
+       .navbar { gap: 8px; }
+       .search-wrap { flex: 1 1 0; min-width: 0; }
+       .search-bar { min-width: 0; }
+       .search-input { min-width: 0; width: 100%; }
+       .logo-sub { display: none; }
+   }
+   @media (max-width: 430px) {
+       /* a busca encolhe, mas continua utilizável e no fluxo */
+       .search-wrap { flex: 1 1 70px; min-width: 62px; }
+       .search-bar { padding-inline: 9px; }
+       .logo { font-size: 17px; }
+       .logo-sub { display: none; }
+   }
+   @media (max-width: 340px) {
+       /* aparelhos bem pequenos: o troféu da Copa entra no menu do topo */
+       .navbar { gap: 6px; padding-inline: 8px; }
+       .copa-nav-btn { min-width: 38px; padding: 0 9px; }
+       .icon-btn { width: 38px !important; height: 38px !important; }
+       .logo { font-size: 15px; }
+   }
+
+   /* ── 10. Escudos e bandeiras nunca estouram a caixa ── */
+   .team-logo, .liga-flag, .copa-hl-flag, .art-logo,
+   .vs-mrow-team img, .cg-team img, .mp2-team img {
+       object-fit: contain;
+   }
+   .copa-hl-flag { max-width: 44px; }
+
+   /* ── 11. Nome do time nas linhas da Copa ── */
+   @media (max-width: 620px) {
+       .vs-mrow-team .tclick { min-height: 42px; line-height: 26px; }
+   }
+
+   /* ── 12. Linha de jogo da Copa: duas fileiras no celular ──
+      Antes o nome do time ficava com 35px de largura e truncava. */
+   @media (max-width: 620px) {
+       .vs-mrow {
+           position: relative;
+           grid-template-columns: 1fr auto 1fr;
+           grid-template-rows: auto auto;
+           row-gap: 9px;
+           padding: 11px 12px 13px;
+           align-items: center;
+       }
+       .vs-mrow-date {
+           grid-column: 1 / -1;
+           white-space: normal;
+           padding-right: 46px;          /* espaço para o botão no canto */
+       }
+       .vs-mrow-date b { display: inline; margin-right: 6px; }
+       .vs-mrow-team span { font-size: 12.5px; }
+       .vs-mrow-team .tclick {
+           min-height: 40px; line-height: 24px;
+           padding: 8px 2px;
+           overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+           max-width: 100%;
+       }
+       .vs-mrow-cta {
+           position: absolute; top: 6px; right: 6px;
+           margin: 0;
+       }
+       .vs-qs { width: 42px; height: 42px; }
+   }
+
+   /* ── 13. Tabela: nome do clube não quebra linha ── */
+   @media (max-width: 620px) {
+       .lg-table td.lft { white-space: nowrap; }
+       .lg-name { display: inline-block; vertical-align: middle; }
+       .lg-pos { margin-right: 8px; }
+       .crest { margin-right: 8px; }
+   }
+
 </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
@@ -4765,7 +4994,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Texto do teaser na sidebar (torneio já encerrado)
     const copaTeaserCountdown = document.getElementById('copa-teaser-countdown');
-    if (copaTeaserCountdown) copaTeaserCountdown.textContent = 'Veja como foi a copa de 2026';
+    if (copaTeaserCountdown) copaTeaserCountdown.textContent = 'Espanha é a campeã 🏆';
 
     // ── JOGOS REAIS DA COPA DO MUNDO 2026 ─────
     // Resultados reais do mata-mata (11/jun a 19/jul/2026), do caminho do
@@ -7410,7 +7639,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sub = document.getElementById('copa-teaser-countdown');
         if (sub) sub.textContent = locked
             ? 'Assine o Premium para ver mais'
-            : 'Veja como foi a copa de 2026';
+            : 'Espanha é a campeã 🏆';
         const cta = document.querySelector('#copa-teaser-card .copa-teaser-cta');
         if (cta) {
             cta.classList.toggle('locked', locked);
@@ -8390,6 +8619,19 @@ document.addEventListener('DOMContentLoaded', () => {
         new IntersectionObserver(([entrada]) => {
             fab.classList.toggle('away', entrada.isIntersecting);
         }, { rootMargin: '0px 0px -80px 0px', threshold: 0 }).observe(rodape);
+    })();
+
+    // Em telas estreitas o texto de exemplo da busca é encurtado
+    (function placeholderCurto() {
+        const input = document.getElementById('search-input');
+        if (!input) return;
+        const original = input.getAttribute('placeholder') || '';
+        const ajustar = () => {
+            input.setAttribute('placeholder',
+                window.innerWidth <= 560 ? 'Buscar' : original);
+        };
+        ajustar();
+        window.addEventListener('resize', ajustar);
     })();
 
     // ══════════════════════════════════════════════════════════════
